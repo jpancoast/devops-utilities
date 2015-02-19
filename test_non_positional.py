@@ -3,16 +3,11 @@
 """test_non_positional.py.
 
 Usage:
-  test_non_positional.py (--help)
-  test_non_positional.py (--version)
-  test_non_positional.py (-s | --server) MEMCACHEDSERVER (-c | --command) COMMAND 
-  test_non_positional.py (-c | --command) COMMAND (-s | --server) MEMCACHEDSERVER
+  test_non_positional.py [-s] MEMCACHEDSERVER [-c] COMMAND
   
 Options:
-  --help     Show this screen.
-  --version     Show version.
-  -s --server  Memcached server.
-  -c --command  Memcached command.
+  -s  Memcached server.
+  -c  Memcached command.
 """
 
 VERSION='0.1'
