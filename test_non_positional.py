@@ -10,22 +10,22 @@ Options:
   -c  Memcached command.
 """
 
-VERSION='0.1'
+VERSION = '0.1'
 
 import sys
 
 try:
-  from docopt import docopt
+    from docopt import docopt
 except ImportError, e:
-  print "Missing docopt module.  Install with: sudo pip install docopt"
-  print "If you don't have pip, do this first: sudo easy_install pip"
-  exit( 2 )
+    print "Missing docopt module.  Install with: sudo pip install docopt"
+    print "If you don't have pip, do this first: sudo easy_install pip"
+    exit(2)
 
 
-
-def main( argv ):
-  arguments = docopt(__doc__, version="test_non_positional.py " + VERSION, options_first=False)
-  print(arguments)
+def main(argv):
+    arguments = docopt(
+        __doc__, version="test_non_positional.py " + VERSION, options_first=False)
+    print(arguments)
 
 if __name__ == "__main__":
-  main( sys.argv )
+    main(sys.argv)
