@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 """
 Insert or check for value in memcached cluster.
 
@@ -15,6 +16,7 @@ Options:
     -p, --port=<port>  Memcached server port [default: 11211].
 
 """
+
 
 VERSION='0.1'
 
@@ -34,24 +36,33 @@ except ImportError, e:
   print "If you don't have pip, do this first: sudo easy_install pip"
   exit( 2 )
 
+
+
+"""
+{'--command': 'get',
+ '--key': 'blan',
+ '--port': '11211',
+ '--server': 'localhost',
+ '--value': None}
+ """
+
 def main( argv ):
   arguments = docopt(__doc__, version="memcached.py " + VERSION, options_first=False)
   print(arguments)
 
-  '''
-  port = '11211'
 
-  if arguments['PORT'] is not None:
-    port = arguments['PORT']
+def parse_arguments(arguments):
+  command = arguments['--command']
+  key = arguments['--key']
+  port = arguments['--port']
+  server = arguments['--server']
 
-  print port
-  '''
+  return ...
 
 if __name__ == "__main__":
   main( sys.argv )
 
 '''
-import memcache
 client = memcache.Client([('127.0.0.1', 11211)])
 client.set("counter", "10")
 client.incr("counter")
