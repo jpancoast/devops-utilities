@@ -7,8 +7,8 @@ Usage:
   naval_fate.py (--speed=<kn>) (--file=<file>)
 
 Options:
-  --speed=<kn>  Speed in knots.
-  --file=<file>  File.
+  -s, --speed=<kn>  Speed in knots.
+  -f, --file=<file>  File.
 """
 
 VERSION = '0.1'
