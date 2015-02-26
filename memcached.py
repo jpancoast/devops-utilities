@@ -3,16 +3,7 @@
 Insert or check for value in memcached cluster.
 
 Usage:
-    memcached.py (--key=<key>)
-    memcached.py (--key=<key>) (--port=<port>) 
-    memcached.py (--command=<command>) (--key=<key>)
-    memcached.py (--command=<command>) (--key=<key>) (--value=<value>)
-    memcached.py (--command=<command>) (--key=<key>) (--port=<port>) 
-    memcached.py (--command=<command>) (--key=<key>) (--port=<port>) (--value=<value>)
-    memcached.py (--server=<server>) (--command=<command>) (--key=<key>)
-    memcached.py (--server=<server>) (--command=<command>) (--key=<key>) (--value=<value>)
-    memcached.py (--server=<server>) (--command=<command>) (--key=<key>) (--port=<port>) 
-    memcached.py (--server=<server>) (--command=<command>) (--key=<key>) (--port=<port>) (--value=<value>)
+    memcached.py [(--server=<server>) (--command=<command>) (--port=<port>) (--value=<value>)] (--key=<key>)
 
 Options:
     --help  Show this screen
