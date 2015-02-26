@@ -1,23 +1,28 @@
 #!/usr/bin/env python
-
-"""memcached.py.
+"""
+Insert or check for value in memcached cluster.
 
 Usage:
-  memcached.py (--help)
-  memcached.py (--version)
-  memcached.py (-s | --server) MEMCACHEDSERVER (-c | --command) COMMAND (-k | --key) KEY
-  memcached.py (-s | --server) MEMCACHEDSERVER (-c | --command) COMMAND (-k | --key) KEY (-v | --value) VALUE
-  memcached.py (-s | --server) MEMCACHEDSERVER (-c | --command) COMMAND (-k | --key) KEY (-p | --port ) PORT
-  memcached.py (-s | --server) MEMCACHEDSERVER (-c | --command) COMMAND (-k | --key) KEY (-v | --value) VALUE (-p | --port) PORT
-  
+    memcached.py (--key=<key>)
+    memcached.py (--key=<key>) (--port=<port>) 
+    memcached.py (--command=<command>) (--key=<key>)
+    memcached.py (--command=<command>) (--key=<key>) (--value=<value>)
+    memcached.py (--command=<command>) (--key=<key>) (--port=<port>) 
+    memcached.py (--command=<command>) (--key=<key>) (--port=<port>) (--value=<value>)
+    memcached.py (--server=<server>) (--command=<command>) (--key=<key>)
+    memcached.py (--server=<server>) (--command=<command>) (--key=<key>) (--value=<value>)
+    memcached.py (--server=<server>) (--command=<command>) (--key=<key>) (--port=<port>) 
+    memcached.py (--server=<server>) (--command=<command>) (--key=<key>) (--port=<port>) (--value=<value>)
+
 Options:
-  --help     Show this screen.
-  --version     Show version.
-  -s --server  Memcached server.
-  -c --command  Memcached command.
-  -k --key  key.
-  -v --value  value.
-  -p --port   Memcached port number.
+    --help  Show this screen
+    --version   Show version
+    -s, --server=<server>  Memcached server [default: localhost]
+    -c, --command=<command>  Memcached command [default: get]
+    -k, --key=<key>  Key.
+    -v, --value=<value>  Value.
+    -p, --port=<port>  Memcached server port [default: 11211].
+
 """
 
 VERSION='0.1'
@@ -42,12 +47,14 @@ def main( argv ):
   arguments = docopt(__doc__, version="memcached.py " + VERSION, options_first=False)
   print(arguments)
 
+  '''
   port = '11211'
 
   if arguments['PORT'] is not None:
     port = arguments['PORT']
 
   print port
+  '''
 
 if __name__ == "__main__":
   main( sys.argv )
