@@ -25,94 +25,92 @@ twitter.com/jpancoast
 Yeah, I know all this can be done by just telnetting to the memcached port and issuing commands, but I needed to have a reason to figure out docopt
 """
 
-VERSION='0.1'
+VERSION = '0.1'
 
 import sys
 
 try:
-  from docopt import docopt
+    from docopt import docopt
 except ImportError, e:
-  print "Missing docopt module.  Install with: sudo pip install docopt"
-  print "If you don't have pip, do this first: sudo easy_install pip"
-  exit( 2 )
+    print "Missing docopt module.  Install with: sudo pip install docopt"
+    print "If you don't have pip, do this first: sudo easy_install pip"
+    exit(2)
 
 try:
-  import memcache
+    import memcache
 except ImportError, e:
-  print "Missing python-memcached module. Install with: sudo pip install python-memcached"
-  print "If you don't have pip, do this first: sudo easy_install pip"
-  exit( 2 )
-
-
+    print "Missing python-memcached module. Install with: sudo pip install python-memcached"
+    print "If you don't have pip, do this first: sudo easy_install pip"
+    exit(2)
 
 
 class testclass():
-  def __init__(self,arguments):
-    (command, port, server, key, value) = self.parse_arguments(arguments)
-    
-    self.command = command
-    self.key = key
-    self.value = value
 
-    self.memcacheclient = memcache.Client([(server, port)])
+    def __init__(self, arguments):
+        (command, port, server, key, value) = self.parse_arguments(arguments)
 
-  def get_command(self):
-    return self.command
+        self.command = command
+        self.key = key
+        self.value = value
 
-  def parse_arguments(self,arguments):
-    command = arguments['--command']
-    key = arguments['--key']
-    port = int(arguments['--port'])
-    server = arguments['--server']
-    value = arguments['--value']
+        self.memcacheclient = memcache.Client([(server, port)])
 
-    valid_commands = ['get', 'set', 'incr', 'decr', 'all']
+    def get_command(self):
+        return self.command
 
-    if command not in valid_commands:
-      print "invalid command: " + command
-      print "Command must be one of the following: " + str(valid_commands)
-      exit(0)
+    def parse_arguments(self, arguments):
+        command = arguments['--command']
+        key = arguments['--key']
+        port = int(arguments['--port'])
+        server = arguments['--server']
+        value = arguments['--value']
 
-    return ( command, port, server, key, value)
+        valid_commands = ['get', 'set', 'incr', 'decr', 'all']
 
-  def get(self):
-    print "get"
+        if command not in valid_commands:
+            print "invalid command: " + command
+            print "Command must be one of the following: " + str(valid_commands)
+            exit(0)
 
-  def set(self):
-    print "set"
+        return (command, port, server, key, value)
 
-  def incr(self):
-    print "incr"
+    def get(self):
+        print "get"
 
-  def decr(self):
-    print "decr"
+    def set(self):
+        print "set"
 
-  def all(self):
-    print "all"
+    def incr(self):
+        print "incr"
+
+    def decr(self):
+        print "decr"
+
+    def all(self):
+        print "all"
 
 
+def main(argv):
+    arguments = docopt(
+        __doc__, version="memcached.py " + VERSION, options_first=False)
 
-def main( argv ):
-  arguments = docopt(__doc__, version="memcached.py " + VERSION, options_first=False)
+    testinstance = testclass(arguments)
+    command = testinstance.get_command()
 
-  testinstance = testclass(arguments)
-  command = testinstance.get_command()
-
-  try:
-    func = getattr(testinstance,command)
-  except AttributeError:
-    print "Missing function " + command
-  else:
-    result = func()
+    try:
+        func = getattr(testinstance, command)
+    except AttributeError:
+        print "Missing function " + command
+    else:
+        result = func()
 
 
 def get():
-  print "get"
-
+    print "get"
 
 
 if __name__ == "__main__":
-  main( sys.argv )
+    main(sys.argv)
 
 '''
 client.set("counter", "10")
