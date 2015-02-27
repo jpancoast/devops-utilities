@@ -17,6 +17,13 @@ Options:
 
 """
 
+"""
+Author: James Pancoast
+Email: jpancoast@gmail.com 
+twitter.com/jpancoast
+
+Yeah, I know all this can be done by just telnetting to the memcached port and issuing commands, but I needed to have a reason to figure out docopt
+"""
 
 VERSION='0.1'
 
@@ -40,15 +47,14 @@ except ImportError, e:
 
 
 class testclass():
-  command = ''
-
   def __init__(self,arguments):
     (command, port, server, key, value) = self.parse_arguments(arguments)
     
     self.command = command
     self.key = key
     self.value = value
-    self.memcachclient = memcache.Client([(server, port)])
+
+    self.memcacheclient = memcache.Client([(server, port)])
 
   def get_command(self):
     return self.command
@@ -72,10 +78,22 @@ class testclass():
   def get(self):
     print "get"
 
+  def set(self):
+    print "set"
+
+  def incr(self):
+    print "incr"
+
+  def decr(self):
+    print "decr"
+
+  def all(self):
+    print "all"
+
+
 
 def main( argv ):
   arguments = docopt(__doc__, version="memcached.py " + VERSION, options_first=False)
-#  print(arguments)
 
   testinstance = testclass(arguments)
   command = testinstance.get_command()
