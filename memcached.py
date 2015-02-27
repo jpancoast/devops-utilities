@@ -38,32 +38,65 @@ except ImportError, e:
 
 
 
-"""
-{'--command': 'get',
- '--key': 'blan',
- '--port': '11211',
- '--server': 'localhost',
- '--value': None}
- """
+
+class testclass():
+  command = ''
+
+  def __init__(self,arguments):
+    (command, port, server, key, value) = self.parse_arguments(arguments)
+    
+    self.command = command
+    self.key = key
+    self.value = value
+    self.memcachclient = memcache.Client([(server, port)])
+
+  def get_command(self):
+    return self.command
+
+  def parse_arguments(self,arguments):
+    command = arguments['--command']
+    key = arguments['--key']
+    port = int(arguments['--port'])
+    server = arguments['--server']
+    value = arguments['--value']
+
+    valid_commands = ['get', 'set', 'incr', 'decr', 'all']
+
+    if command not in valid_commands:
+      print "invalid command: " + command
+      print "Command must be one of the following: " + str(valid_commands)
+      exit(0)
+
+    return ( command, port, server, key, value)
+
+  def get(self):
+    print "get"
+
 
 def main( argv ):
   arguments = docopt(__doc__, version="memcached.py " + VERSION, options_first=False)
-  print(arguments)
+#  print(arguments)
+
+  testinstance = testclass(arguments)
+  command = testinstance.get_command()
+
+  try:
+    func = getattr(testinstance,command)
+  except AttributeError:
+    print "Missing function " + command
+  else:
+    result = func()
 
 
-def parse_arguments(arguments):
-  command = arguments['--command']
-  key = arguments['--key']
-  port = arguments['--port']
-  server = arguments['--server']
+def get():
+  print "get"
 
-  return ...
+
 
 if __name__ == "__main__":
   main( sys.argv )
 
 '''
-client = memcache.Client([('127.0.0.1', 11211)])
 client.set("counter", "10")
 client.incr("counter")
 print "Counter was incremented on the server by 1, now it's %s" %
